@@ -16,7 +16,16 @@ class AWSWMod(Mod):
     def mod_load(self):
         ml = modinfo.get_mods()["MagmaLink"].import_ml()
         
-        #Adine 4 hook
+        #Adine 4 hooks
+        
+        #Better music transition
+        ml.find_label("adine4") \
+            .search_say("Do you want them to see you in this condition and judge you based on that rather than when you're at your best?", 400) \
+            .hook_to("eval_adine4_music") \
+            .search_say("What if something goes wrong, though? You don't want to be in that position.") \
+            .link_from("eval_adine4_music_end")
+        
+        #Content start
         ml.find_label("adine4") \
             .search_say("I don't want to wonder if I'll ever amount to anything more than a waitress. I want to be able to follow my dream, and I don't want to wait another year to find out.", 400) \
             .hook_to("eval_adine4_changes") \
