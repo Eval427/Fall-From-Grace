@@ -14,9 +14,9 @@ label eval_adine4_changes:
         
         #Modded path
         "[[Say nothing.]":
-            Ad "Listen, [player_name]. I have to do this for myself. I have to prove to myself, my parents, and every other person who has doubted me my entire life that I can do this."
+            Ad determined b "Listen, [player_name]. I have to do this for myself. I have to prove to myself, my parents, and every other person who has doubted me my entire life that I can do this."
             c "Adine, what you are doing could have consequences. What if you hurt yourself? Or worse..."
-            Ad "You know what? If I keep having that mindset, I'll never do anything with my life. I will fly and do the best damn job I've ever done, and there's nothing you can do to stop me."
+            Ad determined c "You know what? If I keep having that mindset, I'll never do anything with my life. I will fly and do the best damn job I've ever done, and there's nothing you can do to stop me."
             hide adine with dissolve
             m "Before I could reply, she angrily stomped off towards the building and joined the group of contestants."
             m "She glanced at me over her shoulder one last time before making her way inside."
@@ -42,15 +42,17 @@ label eval_adine4_changes:
             m "She turned to face the audience once more, and with a running start, took off through the rings of smoke she had just created."
             m "Her performance was a sight to behold. She began with a series of fluid twists and turns, creating patterns in the air with the smoke."
             m "However, as her performance continued, her motions became more jagged and she seemed to lean into her injured wing."
+            $ evalStageNameLetter = adinestagename[0].upper()
             if len(adinestagename) > 1:
-                m "With grim determination, she gained even more altitude and started moving in calculated motions. Soon, smoke formed the letter [adinestagename[0]]."
+                m "With grim determination, she gained even more altitude and started moving in calculated motions. Soon, smoke formed the letter \"[evalStageNameLetter]\"."
                 c "(Is she writing out her stage name?)"
                 if len(adinestagename) > 7:
                     c "(That's quite a long thing to write out with smoke.)"
-                "However, while working on the letter [adinestagename[1]], her body sharply twisted and Adine quickly started loosing altitude."
+                $ evalStageNameLetter = adinestagename[1].upper()
+                "However, while working on the letter \"[evalStageNameLetter]\", her body sharply twisted and Adine quickly started loosing altitude."
                 
             else:
-                m "With grim determination, she gained even more altitude and started moving in calculated motions. Soon, smoke formed the letter [adinestagename[0]]."
+                m "With grim determination, she gained even more altitude and started moving in calculated motions. Soon, smoke formed the letter \"[evalStageNameLetter]\"."
                 c "(I'm glad I kept her stage name short.)"
                 m "However, upon finishing the letter, her body sharply twisted and Adine quickly started loosing altitude."
             m "The crowd gasped, but with some difficulty Adine regained her composure." #Get rid of this
@@ -59,9 +61,16 @@ label eval_adine4_changes:
             c "(This is it. This is her special move.)"
             m "As her circles became tiny, she suddenly tucked in her wings and went into a nosedive through the circles, disrupting the smoke in beautiful patterns."
             m "She descended quickly, and as she unfurled her wings to stop her downward momentum, she screamed in pain and lost her balance."
-            m "She had lost control. All I could do was watch as Adine desperately attempt to correct herself as she came closer and closer to th-{w=1.0}{nw}"
+            m "She had lost control. All I could do was watch as Adine desperately attempted to correct herself as she came closer and closer to th-{w=1.0}{nw}"
             stop music
             play sound "fx/adinecrash.mp3"
             scene black with Shake ((0, 0, 0, 0), 2, dist=50)
             m "I couldn't watch. I shut my eyes before Adine hit the ground with a horrifying thud."
+            $ renpy.pause (2.0)
+            "Announcer" "Ladies and gentlemen it seems we have had an unfortunate accident. Please, stay calm. Paramedics are already on their way."
+            m "Slowly, I decided to open my eyes and witness the horrors I knew stood before me."
+            scene fac12
+            show evalsmokeoverlay
+            with dissolveslow
+            m "I was met with a thick cloud of smoke obscuring my vision. The device on her tail must have exploded on contact with the ground."
             #When adine crashes, have a smoke overlay since the smoke device will burst
