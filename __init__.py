@@ -31,6 +31,27 @@ class AWSWMod(Mod):
             .hook_to("eval_adine4_changes") \
             .search_say("What about Amely? If something happened to you, how do you think they would explain to her that you just suddenly stopped showing up, huh?") \
             .link_from("eval_adine4_default_path")
-    
+
+        #Let Remy die again
+        ml.find_label("c4library") \
+            .search_sound("fx/knocking1.ogg") \
+            .search_python("renpy.pause (3.3)") \
+            .hook_to("eval_anti_remy_persistence")
+
+        remy_conditional = ml.find_label("c4library").search_if("remystatus == \"good\"")
+         
+        remy_conditional.branch("persistent.remygoodending == True") \
+            .hook_to("eval_anti_remy_persistence")
+        
+        remy_conditional.branch_else() \
+            .hook_to("eval_anti_remy_persistence_jump") \
+        
+        ml.find_label("c4postsections") \
+            .search_show("sebastian normal b") \
+            .hook_call_to("eval_remydeath_check") \
+        
+        ml.find_label("chapter5") \
+            .hook_call_to("eval_remydeath_check")
+
     def mod_complete(self):
         pass
