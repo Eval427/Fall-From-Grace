@@ -61,6 +61,7 @@ label eval_adine5_phonecall:
 
     jump eval_adine5_phonecall_end
 
+#Also includes code for the good ending
 label eval_adine5_fireworks:
     $ save_name = (_("Chapter 5 - Adine"))
     scene black with dissolvemed
@@ -119,7 +120,7 @@ label eval_adine5_fireworks:
 
         menu:
             "[[Accept]":
-                $ eval_adine_mood += 1
+                $ eval_adine5_mood += 1
                 $ eval_ffg_ch5_romance = True
                 m "Seizing the opportunity, I leaned forward and pressed her smooth, scaly lips to my own. For a few moments, time around us stopped." #Our lips parted...
                 m "As our lips parted, Adine smiled and returned her gaze to the fireworks."
@@ -131,9 +132,10 @@ label eval_adine5_fireworks:
     
     $ renpy.pause (0.5)
 
+    #If Remy is dead, jump to the bad ending where Remy is dead
     if remydead:
         jump eval_adine5_remydead_bad
-
+        
     Ry look "Adine?"
     Ad normal hurt "Come in!"
     show adine normal hurt at right with move
@@ -156,7 +158,7 @@ label eval_adine5_fireworks:
         show remy shy flip with dissolve
         c "It was nothing, really. We were both just so worried about you."
     elif eval_ffg_ch4_hospital_leave == "sleep":
-        $ eval_adine_mood += 1
+        $ eval_adine5_mood += 1
         Ry look flip "What happened after I left the hospital last time we were here?"
         c "Not much. I decided to spend the night and [eval_ffg_ch4_character] escorted me out the following morning."
         Ry "[player_name]! We could have gotten in serious trouble if we were caught by someone other than [eval_ffg_ch4_character]."
@@ -195,6 +197,7 @@ label eval_adine5_fireworks:
     Ad none hurt "Good luck, [player_name]. Please be safe."
     c "I'll try my best."
     stop soundloop fadeout 2.0
+    stop music fadeout 2.0
     scene black with dissolveslow
     $ renpy.pause (0.5)
     
@@ -202,6 +205,7 @@ label eval_adine5_fireworks:
     $ renpy.pause (3.5)
     call endingjustafewminuteslater from _call_ffg_eval_justafewminuteslater
 
+    #If you don't have the map, jump to the bad ending similar to basegame
     if not adinegoodending:
         jump eval_adine5_nomap_bad
 
@@ -444,9 +448,383 @@ label eval_adine5_fireworks:
     Ad normal "Bright and early. I'm getting out of here as soon as possible."
     stop music fadeout 2.0
     scene black with dissolveslow
+    
+    #Temporary. Delete later
+    $ renpy.pause (5.0)
+    $ renpy.pop_call
+    jump mainmenu
 
 
 #Bad ending: You spend your last moments with Adine in the hospital when the comet comes down. m "And then..." s "There was nothing."
 label eval_adine5_remydead_bad:
+    m "As I listened to the bursts of the fireworks in the night sky, a terrible realization came over me."
+    play music "mx/judgement.ogg" fadein 0.5
+    m "Considering how public of an event this was and how everyone would be watching the fireworks, now would be the best time for Reza to make his move."
+    m "Not only wa the village basically deserted, but the sounds of the fireworks would also overshadow any gunshots, giving him as much security as he would ever need."
+    m "As the portal had been repaired by the mysterious person I met, now was the perfect time for Reza to make his getaway, and I was the only one who knew."
+    c "I think I know where Reza is."
+    show adine contemplate hurt with dissolve
+    Ad "What do you mean?"
+    c "The fireworks make the perfect time for his getaway. The area around te portal is almost completely deserted and the sounds of the fireworks could cover up any of his gunshots."
+    Ad disappoint hurt "I see. Well, what should we do?"
+    c "You're in no shape to do anything at the moment. I'll go to the portal and confront Reza myself."
+    Ad "By yourself?"
+    c "He would hesitate to shoot another human and I'll raise less suspicion going there alone."
+    Ad sigh hurt "Just... Please be safe out there."
+    c "I will, Adine."
+
+    stop soundloop fadeout 2.0
+    stop music fadeout 2.0
+    scene black with dissolveslow
+    $ renpy.pause (0.5)
+    
+    scene np1r at Pan((100, 0), (500, 150), 6.0) with dissolveslow
+    $ renpy.pause (3.5)
+    call endingjustafewminuteslater from _call_ffg_eval_justafewminuteslater
+
+    Rz gunself "Now, I recommend you just stay right where you are. I won't hesitate to shoot you if I catch the slightest hint of retaliation."
+    Rz angry "I've been risking my life for this every day for the last two weeks. What did you do during that time? sip champange in your nice apartment?"
+    Rz "Besides, this generator and the whole building came from our time."
+    show izumi normal behind reza at Position(xpos=1.25, xanchor="center")
+    Rz "They belong to humanity!" with Shake((0, 0, 0, 0), 2, dist=10)
+
+    show reza at Position(xpos=0.45, xanchor="center")
+
+    m "Suddenly, the Administrator came out of the shadows in the hallway behind Reza."
+
+    show izumi normal at right with ease
+
+    As "No, they belong to me."
+    play sound "fx/rev.ogg"
+    show reza angry flip
+    m "Confused, Reza sput around, aiming his gun at the newcomer who was slowly walking towards him."
+    Rz "Who the fuck are you? Freeze! I said freeze!"
+    show izumi at Position(xpos=0.8, xanchor="center") with ease
+    As "Want to waste your bullets on me? Feel free. It will change nothing."
+    play sound "fx/rev.ogg"
+    Rz gunpoint flip "If you say so."
+    play sound "fx/gunshot2.wav"
+    $ renpy.pause(0.5)play sound2 "fx/silence.ogg"
+    queue sound2 "fx/silence.ogg"
+    queue sound2 "fx/silence.ogg"
+    queue sound2 "fx/silence.ogg"
+    queue sound2 "fx/impact3.ogg"
+
+    hide izumi with easeoutbottom
+
+    m "He pulled the trigger, and the Administrator fell to the ground with a dull thud that knocked her mask off."
+
+    $ persistent.izumiseen = True
+
+    show izumiinjured6 at Pan((300, 0), (600, 608), 7.0) with fade
+
+    $ renpy.pause (5.0)
+
+    hide izumiinjured6
+    show reza annoyed at Position(xpos=0.9)
+    with fade
+
+    Rz "Don't try anything, [player_name]."
+    m "I did as he said and could only watch as he took the generator and left."
+    
+    show reza annoyed flip at Position (xpos = 0.8) with ease
+    play sound "fx/box2.wav"
+    $ renpy.pause (2.0)
+    show reza annoyed
+    $ renpy.pause (0.3)
+    show reza at Position (xpos = 0.5) with ease
+    $ renpy.pause (0.3)
+    show reza at Position (xpos = 0.2) with ease
+    $ renpy.pause (0.3)
+    hide reza with easeoutleft
+
+    m "As Reza left the building, I reflected for a moment."
+    m "If Reza got away with those generators, the dragon would would be destined to fall to the comet."
+    m "No matter how foolish or rash it may be, I had no other choice but to get those generators back from him."
+
+    jump eval_adine5_remydead_insert
 
 label eval_adine5_nomap_bad:
+    Mv "Maybe I can."
+    play music "mx/martyr.ogg" fadein 0.5
+    m "Suddenly, Maverick and Remy appeared next to me."
+    show reza at Position(xpos = 0.9) with ease
+    show maverick normal flip at Position(xpos = 0.2, xanchor = "center") with easeinleft
+    show remy look flip at Position(xpos = 0.05, xanchor = "center") with easeinleft
+    Rz angry "You planned this, didn't you, [player_name]?"
+    Rz "Traitor!" with hpunch
+    Rz "And to think I let you distract me with such a cheap trick! Just because I thought there was still a stred of humanity within you..."
+    c "I'm not the one killing innocent dragons, here."
+    Rz "And I'm not the one risking the existance of humanity by befriending a bunch of big lizards!"
+    play sound "fx/rev.ogg"
+    show reza gunself with dissolve
+    show reza gunpoint with dissolve
+    m "He pulled out his gun, not sure which one of us he should be aiming at."
+    Rz "Just let me go, and I'll forget this thing ever happened."
+    c "You've got six bullets for three people. Do you really think you can do that, Reza? Do you think this is worth risking your life for?"
+    Rz "I've been risking my life for this every day for the last two weeks. What did you do during that time? Sip champagne in your nice apartment?"
+    c "But if we have just cooperated with the drago-{w=1.0}{nw}"
+    Rz "I don't want to hear it. Cooperation would have led to the failure of our plans and the fall of humanity."
+    Rz "Besides, this generator and the whole building came from out time."
+    show izumi normal behind reza at Position(xpos = 1.25, xanchor = "center")
+    Rz "They belong to humanity!" with Shake((0, 0, 0, 0), 2, dist = 10)
+
+    show reza at Position(xpos = 0.45, xanchor = "center")
+    show remy at Position(xpos = -0.3, xanchor = "center")
+    show maverick at Position(xpos = -0.3, xanchor = "center")
+    with ease
+
+    m "Suddenly, the Administrator came out of the shadow in the hallway behind Reza."
+    show izumi normal at right with ease
+    As "No, they belong to me."
+    play sound "fx/rev.ogg"
+    show reza angry flip
+    m "Confused, Reza spun around, aiming his gun at the newcomer who was slowly walking towards him."
+    Rz "Who the fuck are you? Freeze! I said freeze!"
+    show izumi at Position(xpos = 0.8, xanchor = "center") with ease
+    As "Want to waste your bullets on me? Fell free. You can't stop all of us."
+    play sound "fx/rev.ogg"
+    Rz gunpoint flip "If you say so."
+    play sound "fx/gunshot2.wav"
+    $ renpy.pause (0.5)
+
+    play sound2 "fx/silence.ogg"
+    queue sound2 "fx/silence.ogg"
+    queue sound2 "fx/silence.ogg"
+    queue sound2 "fx/silence.ogg"
+    queue sound2 "fx/impact3.ogg"
+
+    hide izumi with easeoutbottom
+
+    m "He pulled the trigger, and the Administrator fell to the ground with a dull thud that knocked her mask off."
+
+    $ persistent.izumiseen = True
+
+    show izumiinjured6 at Pan((300, 0), (600, 608), 7.0) with fade
+
+    $ renpy.pause (5.0)
+
+    hide izumiinjured6
+    show maverick normal flip at Position(xpos=0.2, xanchor='center')
+    show adine at Position(xpos=0.1, xanchor='center')
+    show reza at Position (xpos = 0.9)
+    with fade
+
+    show reza gunpoint
+    play sound "fx/gunshot2.wav"
+    $ renpy.pause (0.5)
+    hide remy with easeoutbottom
+    m "Reza was quick with his gun and shot Remy in the side before Maverick even had a chance to charge."
+    play sound "fx/snarl.ogg"
+    show maverick angry flip with dissolve
+    $ renpy.pause (1.0)
+    play sound "fx/gunshots2.ogg"
+    show maverick at Position (xpos = 0.35) with ease
+    $ renpy.pause (0.2)
+    show maverick at Position (xpos = 0.5) with ease
+    $ renpy.pause (0.2)
+    hide maverick
+    hide reza
+    with easeoutbottom
+
+    m "Despite mutliple bullet wounds, Maverick managed to bring Reza to the floor with him."
+    play sound "fx/gunshot2.wav"
+    m "Maverick was able to bite Reza on his side, but a bullet to the head caused him to slump over, lifeless."
+
+    show reza annoyed b with easeinbottom
+
+    Rz angry "What now, [player_name]? Are you going to let me through, or do I have to finish the job with you?"
+    m "Remy was lying on the ground next to me, injured, while Maverick and the Administrator lay dead in a pool of their own blood."
+
+    show maverickdead1 at Pan((500, 500), (250, 400), 7.0) with fade
+    $ renpy.pause (5.0)
+    show izumidead6 at Pan((0, 0), (140,79), 7.0) with fade
+    $ renpy.pause (5.0)
+    hide izumidead6
+    hide maverickdead1
+    show reza at center
+    with fade
+
+    c "Now you hesitate to kill, after doing all this?"
+    show reza annoyed with dissolve
+    show reza at Position (xpos = 0.8) with ease
+    play sound "fx/rev.ogg"
+    Rz gunself b "It's your choice."
+    Ry "{size=-5}Please...{/size}"
+    c "Just... go."
+    Rz angry b "If you told me that just a few minutes ago, I wouldnt have had to do all of this. Heck, you could've come with me, you stupid idiot. But if you want to die here with everyone else, feel free."
+    Rz annoyed b "Alright, step over there and lie on the ground. If I see either of you moving before I'm gone, I'll shoot."
+    m "I did as he said and could only watch as he took the generator and left."
+    show reza annoyed flip at Position(xpos = 0.8) with ease
+    
+    play sound "fx/box2.wav"
+    $ renpy.pause (2.0)
+    show reza annoyed
+    $ renpy.pause (0.3)
+    show reza at Position (xpos = 0.5) with ease
+    $ renpy.pause (0.3)
+    show reza at Position (xpos = 0.2) with ease
+    $ renpy.pause (0.3)
+    hide reza with easeoutleft
+
+    $ renpy.pause(2.0)
+    Ry "[player_name] you need to stop him."
+    c "But how? He's armed and I've got nothing to defend myself with."
+    Ry sad "I'm not sure, but you have to try."
+    m "Remy was right. Without the power of those generators, this world was destined to meet it's end. No matter how rash the decision seemed, I needed to do everything I could."
+    c "Don't move, Remy, you're injured. I'll go."
+    m "Remy groaned as he turned around to look at me."
+    Ry sad "Good luck, [player_name]."
+    label eval_adine5_remydead_insert:
+        pass
+    c "I carefully got up, following where Reza had left the facility and slowly opened the door outside."
+
+    scene black with dissolveslow
+    $ renpy.pause(1.5)
+    scene np1r at Pan((500, 150), (500, 150), 6.0) with dissolvemed
+    play music "mx/confrontation.ogg"
+
+    m "When I opened the doors, I spotted Reza at the portal's terminal."
+    c "{size=+5}Reza!{/size}" with hpunch
+    m "Reza looked up from the terminal, his eyes furrowed in rage."
+    show reza rage with dissolve
+    Rz "Didn't I tell you to sit still, [player_name]?"
+    Rz "I give you one simple request and you fail it miserably."
+    Rz normal "You really think you can stop me, don't you? You think you're strong enough to take on a person with a loaded gun."
+    Rz laugh "I question how someone as stupid as you was given the opportunity to visit this world in the first place. Normally they would send someone more qualified for the job."
+    c "Reza, please. This world needs those generators to deflect the meteor. Without it the dragons are doomed!"
+    Rz normal "And why should I care if these big lizards get hit by the meteor? They're not the future for humanity, these generators are."
+    Rz "Listen, [player_name], you should feel honored that I haven't already shot hot lead through your skull. Just stand back and let me go."
+    Rz gunself "Or else."
+
+    menu:
+        "[[Let him go.]":
+            m "There was no way I was going to stop him. I had tried to convince him, but his gun was much more powerful than my words." #Meh
+            c "Fine. You win."
+            Rz normal "Good. Now don't move a muscle, or you'll never have to opportunity to do so again."
+        
+        "[[Grab the gun.]":
+            $ eval_ffg_ch5_bad_shot = True
+            m "I suddenly lunged at Reza's gun and grabbed the barrel, pointing it down from my head."
+            play sound "fx/gunshot3.ogg"
+            m "Reza pull on the trigger, sending a searing pain up my leg. I released my grip from the gun and held my leg in anguish."
+            Rz rage "You actually tried that? I can't believe how utterly rash and naive you are."
+            Rz "I should fucking kill you, but I'm not here to end human lives, I'm here to save them."
+            Rz "Next time I recommend cooperating with the person with the gun, [player_name]. Not like there will be a next time for you after that meteor strikes."
+            c "Reza...{w=1.5){nw}"
+            Rz gunself "One more word and I'll change my mind about killing you."
+            m "I stayed silent, clutching my bloody leg and gritting my teeth in pain."
+            Rz normal "Good. Now you've learned your lesson."
+
+    show reza normal flip
+    hide reza with easeoutright
+    m "I watched as Reza made his way back to the portal's terminal."
+    play sound "fx/portalhit.mp3"
+    m "He interacted with it briefly before the portal sprang to life. With the butt of his gun he smashed the terminal panel, shattering the glass."
+    queue sound "fx/quicktel.mp3"
+    m "Grabbing the generators, he stepped into the portal and, after a flash of light, was gone."
+    
+    if eval_ffg_ch5_bad_shot:
+        m "I laid down on the ground in pain, taking off my shirt and tying it around my leg to hinder the blood flow."
+        m "Soon, multiple dragons arrived on the scene, seemingly called in by the musterious bang after the fireworks show had already ended."
+    else:
+        m "Soon, multiple dragons arrived on the scene, seemingly called in by the activation of the portal."
+    
+    nvl clear
+    window show
+
+    if eval_ffg_ch5_bad_shot:
+        n "I laid down on the ground in pain, taking off my shirt and tying it around my leg to hinder the blood flow."
+    n "Soon, multiple dragons arrived on the scene, seemingky called in by the activation of the portal."
+    if eval_ffg_ch5_bad_shot:
+        n "I was quickly transported to the hospital and treated for my wounds."
+    if not remydead:
+        n "While both Maverick and the Administrator were dead, it turned out that Remy's injury was fairly minor, and he soon got the medical attention he needed."
+    n "When I attempted to use the portal to follow Reza, however, I discovered that the portal's terminal was completely destroyed, and the only person who would know how to fix it laid buried in the earth."
+    n "After Reza had arrived on the other side, he or humanity must have quickly deactivated the portal in order to prevent anyone from connecting with it again."
+    n "I warned the dragons about the comic, but without the generators from the underground building, they failed at diverting the comet enough to make a difference."
+
+    window hide
+    nvl clear
+    window show
+
+    n "I was out of options. Reza had destroyed the portal on his way out and the comet was bound to hit the earth in a matter of days."
+    n "As the hours passed, I found myself at a loss, aimlessly wandering the deserted streets and looking into the closed buildings."
+    n "I met up with Adine in her hospital room, hoping to spend my final few hours in her presence."
+
+    window hide
+    nvl clear
+
+    scene evalhospitalroom
+    show adine sad hurt
+    with dissolveslow
+    play music "mx/sad.ogg"
+    Ad "I guess this is the end, isn't it?"
+    c "I'm sorry."
+    Ad "You can't blame yourself. You did what you could. Even if it had to end like this, I enjoyed my time with you. Let's not have any regrets now."
+    c "Thank you."
+    Ad disappoint hurt "Remember when I asked you what you were going to do if you knew the world was going to end?"
+
+    if adine1choice == "fullest":
+        Ad "You told me you would enjoy life to the fullest until the last moment. Does that mean spending time with me is living your life to the fullest?"
+        c "Yes, Adine. I wouldn't trade this moment for anything else."
+        Ad optimism hurt "Thank you, [player_name]. That means a lot."
+    elif adine1choice == "goodbyes":
+        Ad "You told me you would say your last goodbyes and hope for the best. Is this what this is, your last goodbyes?"
+        c "No, because I'm not leaving you until the end."
+        Ad optimism hurt "Oh, [player_name]. That's very sweet of you."
+    elif adine1choice == "outside":
+        Ad "You told me you would stay outside and watch it all unfold before your eyes."
+        c "Yes, but I'd like to stay inside and watch it happen with you."
+        Ad optimism hurt "Together until the end."
+    else:
+        Ad "You told me you'd hide in a bunker deep underground, but I'm not sure we can do that."
+        c "Even if we did, we wouldn't be able to survive on the barren landscape."
+        Ad "Yeah..."
+    
+    m "The sky started to glow brighter as the big rock in the sky drew closer."
+    Ad sad hurt "I can't believe it has to end like this."
+    Ad "I was so close to winning that competition, I just know it! But my damn wing had to give out at the very last moment."
+    m "The room became brighter again, the comet visible through the open window."
+    Ad disappoint hurt "Look at me, [player_name]. I'm nothing more than a waitress making minimum wage and a terrible flyer."
+    c "Adine, you're so much more than that."
+    Ad "I got one opportunity in my life to make a difference and I blew it. Now the world's going to end and I'm still just a nobody."
+    c "Adine, you are an amazing person, I really mean it."
+    if varasaved:
+        c "Think about Amely and Vara. What would they do without you? You are the light of their lives."
+    else:
+        c "Think about Amely. What would she do without you? You are the light of her life."
+    c "I also know firsthand that you are a spectacular flyer, and despite the incident during the event, your drive and motivation to reach your goals is inspiring."
+    Ad "..."
+    if eval_ffg_ch5_romance:
+        hide adine with dissolve
+        m "Suddenly, I found myself in the warm embrace of Adine's wings. Her soft scales enveloping my upper body."
+        Ad optimism hurt "If this is the end, I'm glad I'll be spending it with you."
+        c "Me too, Adine."
+        m "The two of us looked out the window in silence, watching the grow larger and larger."
+        m "Adine pressed her frills against my cheek, and I could feel her lips quivering in fear."
+
+    else:
+        m "Suddenly, I felt Adine grab my hand in her wingclaw and squeeze tightly."
+        Ad optimism hurt "If this is the end, I'm glad I'll be spending it with you."
+        c "Me too, Adine."
+        m "The two of us looked out the window in silence, watching the grow larger and larger."
+    
+    Ad "{size-=5}Goodbye, [player_name]."
+    m "I gulped, holding back tears."
+    c "Goodbye, Adine."
+
+    m "Tears rolled from her eyes as the room got darker."
+    m "Blackness overtook the sky, screaming and crying could be heard somewhere off in the distance."
+    m "And then...{w=3.0}{nw}"
+    scene black
+    stop music
+    $ renpy.pause (3.0)
+    play sound "system3.wav"
+    s "There was nothing."
+
+    #I almost cried writing this. I hope it lands
+
+    #This was also written on an airplane with TERRIBLE turbulence if that interests whoever is reading this
+
+    #Roll credits

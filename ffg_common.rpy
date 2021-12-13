@@ -62,10 +62,22 @@
     #Chapter 4: Extended fireworks scene
     #Chapter 5 (secret): The second flight competition
 
+#Eval's dump of random things:
+    #I started writing this soon after TDOMI, but a mix of going to college
+    #and feeling burnt out made me take a break
+    #I thought this project was lost but while bored on a plane I guess I
+    #decided to revive it
+    #Why do I have these comments?
+    #Adine blush doesn't exist. Whoops (and watch me forget to edit this later once I add it)
+    #Add an option to skip the beginning
+    #Add randomness to the dates to keep them somewhat fresh for replayability?
+
 
 init python:
-    #Literally the most important variable in the entire mod. - Doubt this will be used lol
-    eval_adine_mood = 0
+    #Adine's mood variables
+    eval_adine_total_mood = 0
+    eval_adine5_mood = 0
+    eval_adine6_mood = 0
 
     #Whether you are going on the mod pah (determined by first menu option)
     eval_ffg_mod_path = False
@@ -84,6 +96,9 @@ init python:
 
     #Whether you romance Adine in chapter 5
     eval_ffg_ch5_romance = False
+
+    #Whether you get shot during the bad ending
+    eval_ffg_ch5_bad_shot = False
 
 #Remove Remy's persistent survival. AKA, Remy can now die if his status is bad or abandoned despite having his good ending
 label eval_anti_remy_persistence:
