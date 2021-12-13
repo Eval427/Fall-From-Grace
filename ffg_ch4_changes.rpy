@@ -16,6 +16,7 @@ label eval_adine4_changes:
         
         #Modded path
         "[[Say nothing.]":
+            $ eval_ffg_mod_path = True
             pass
 
     Ad determined b "Listen, [player_name]. I have to do this for myself. I have to prove to myself, my parents, and every other person who has doubted me my entire life that I can do this."
@@ -136,49 +137,51 @@ label eval_adine4_changes_post_crash:
 
     #Remy can only have a good/neutral status or be dead
     play music "mx/forge.ogg" fadein 2.0
-    Ry "Did you see it?"
+    Ry "I assume you know what occured at the flight competition today."
     c "Yeah... {w}I was there for the whole thing."
-    Ry "What happened?"
+    Ry "Do you have any idea how this happened?"
 
     menu:
         "[[Tell him about the incident.]":
-            c "She had sprained her wing during one of our practice sessions. I tried to stop her from participating but{w=0.5}.{w=0.5}.{w=0.5}. she wouldn't listen."
+            c "She had sprained her wing during one of our practice sessions. I tried to stop her from participating but she wouldn't listen."
             Ry angry "You let her join knowing full well that something like this may have happened?"
             c "Remy, I-{w=0.3}{nw}"
-            Ry "Why would you not try to stop her? Why would you not try to do everything in your power to make sure she didn't enter that damn competition?" with hpunch
+            Ry "Why would'nt you try to stop her? Why would you not try to do everything in your power to make sure she didn't enter that damn competition?" with hpunch
             c "She said she was worthless, Remy. She told me that she felt as if she was wasting her life away working as a waitress. She wanted to do more, and this was the only opportunity she felt she had."
-            Ry "I{w=0.2}.{w=0.2}.{w=0.2}."
+            Ry "I-"
             $ renpy.pause (0.5)
             Ry sad "I guess I would have let her go, too."
         
         "[[Feign ignorance.]":
             c "I'm not sure. One moment she was in the air, and the next she was falling headfirst into the ground. It looks like she got hurt during the performance."
 
+    #Currently unhappy with this portion of dialogue
     Ry "I just wish I could have done more to help her. To prevent any of this from happening."
-    c "I talked to Sebastian. She is still alive, but unstable."
+    Ry "I managed to briefly talk with one of the paramedics before we were escorted out of the area. She's still alive."
     Ry shy "She is? I... I thought she was dead."
     c "Her body was not a pretty sight."
     Ry "I... wow. I thought we lost her. I'm so glad she's still here with us."
     c "I was as relieved as you are. Now we can only hope for the best."
+    #End of content I don't like
     Ry "Can we sit down for a moment? I need some time to process all of this."
     c "Sure, I couldn't agree more."
     m "Together, we made our way over to a park bench and rested."
     scene black with dissolveslow
-    m "I closed my eyes and tried to relax. Taking deep breaths in{w=0.5}.{w=0.5}.{w=0.5}. and out."
+    m "I closed my eyes and tried to relax. Taking deep breaths to calm my nerves."
     m "Remy laid quietly on the soft grass by my feet, his side brushing up against me with the rise of each breath."
     m "I soon found myself drifting out of consciousness as sleep overtook my body."
     $ renpy.pause (4.0)
     Ry "[player_name]?"
     scene evalpark2
-    show remy normal
+    show remy normal dk
     with dissolveslow
     m "I groggily wiped my eyes."
     c "Did I fall asleep?"
-    Ry "We both did. I think we needed a little nap to recover."
+    Ry normal dk "We both did. I think we needed a little nap to recover."
     c "I guess so."
     Ry "Judging from the night sky, we must have been out for hours. We might be able to visit Adine now."
     c "You think so?"
-    Ry "Yes. The local hospital is quite leniant when it comes to visitors."
+    Ry look dk "No, but I'm hoping that someone will let us."
     c "Sure, let's go."
 
     #Start of hospital scene
@@ -189,10 +192,7 @@ label eval_adine4_changes_post_crash:
     show remy look with dissolve
     Ry "Now, to find Adine..."
     
-    #More dramatic without music?
-    #play music "mx/pier.mp3" fadein 2.0
-    play sound "fx/hallwalk.mp3" fadein 3.0
-    $ renpy.pause (3.0)
+    $ renpy.pause (1.0)
     stop sound
     if annastatus == "good" and not annadead:
         $ eval_ffg_ch4_character = "Anna"
@@ -206,47 +206,34 @@ label eval_adine4_changes_post_crash:
         An smirk b flip "But for you two lovebirds, I guess I can make it happen."
         Ry shy "Anna, it isn't like that..."
         An "Then I guess you don't need my help. I'll be on my way then."
-        show anna smirk b
-        $ renpy.pause (0.3)
-        show anna smirk b at Position(xpos = -0.2) with move
         Ry look "Wait, please."
-        show anna smirk b flip
-        $ renpy.pause (0.3)
         An normal b flip "Fine then. Come with me before I change my mind."
         show anna normal b
         $ renpy.pause (0.3)
         hide anna with easeoutleft
         hide remy with easeoutleft
         scene black with dissolveslow
-        play sound "fx/hallwalk.mp3"
-        $ renpy.pause (3.5)
-        stop sound fadeout 2.0
         $ renpy.pause (2.1)
         play sound "fx/door/opendoorslow.ogg"
-        $ renpy.pause (3.5)
+        $ renpy.pause (3.6)
         play soundloop "fx/heartrate.mp3" fadein 2.0
-        scene evalhospitalroom with dissolveslow
-        show remy normal at right
-        show anna normal b flip at left
+        scene evalhospitalroomnight with dissolveslow
+        show remy normal dk at right
+        show anna normal b dk flip at left
         with dissolve
         $ renpy.pause (0.5)
         c "Thank you, Anna."
         An "Don't mention it."
-        show anna normal b
-        $ renpy.pause (0.3)
-        show anna normal b at Position (xpos = -0.2) with move
-        $ renpy.pause (0.6)
-        show anna normal b flip
         $ renpy.pause (0.4)
-        An smirk b flip "Seriously, though. If anyone caught me doing this, I would be in serious trouble."
-        Ry look "{size=-5}Not like you aren't already.{/size}"
-        An disgust b flip "Shut it, Remy."
-        show anna normal b
+        An smirk b dk flip "Seriously, though. If anyone caught me doing this, I would be in serious trouble."
+        Ry look dk "{size=-5}Not like you aren't already.{/size}"
+        An disgust b dk flip "Shut it, Remy."
+        show anna normal b dk
         $ renpy.pause (0.3)
         hide anna with easeoutleft
-        play sound "fx/door/door_close.wav"
-        show remy sad with dissolve
-        show remy sad at center with move
+        play sound "fx/door/door_close.ogg"
+        show remy sad dk with dissolve
+        show remy sad dk at center with move
     else:
         $ eval_ffg_ch4_character = "Sebastian"
         Sb normal b "[player_name]?"
@@ -274,22 +261,22 @@ label eval_adine4_changes_post_crash:
         stop sound fadeout 2.0
         $ renpy.pause (2.1)
         play sound "fx/door/opendoorslow.ogg"
-        $ renpy.pause (3.5)
+        $ renpy.pause (3.6)
         play soundloop "fx/heartrate.mp3" fadein 2.0
-        scene testingroom with dissolveslow
-        show remy normal at right
-        show sebastian normal b flip at left
+        scene evalhospitalroomnight with dissolveslow
+        show remy normal dk at right
+        show sebastian normal b dk flip at left
         with dissolve
         $ renpy.pause (0.5)
         c "Thank you, Sebastian."
         Sb "Anytime."
-        show sebastian sad b
+        show sebastian normal b dk
         $ renpy.pause (0.3)
         hide sebastian with easeoutleft
         play sound "fx/door/door_close.wav"
-        show remy sad at center with move
+        show remy sad dk at center with move
     
-    Ry sad "Look at her, the poor thing."
+    Ry sad dk "Look at her, the poor thing."
     hide remy with dissolve
     m "Remy made his way over to the bed where Adine lay. He rested his paw against her chest, having it slowly rise and fall with each of her short breaths."
     m "I joined his side and placed my hand on her body as well, feeling the faint bumps of her heart in her chest."
@@ -316,9 +303,9 @@ label eval_adine4_changes_post_crash:
         Ry sad "Nevermind, it doesn't matter, anyways."
     
     m "Adine stirred slightly in her sleep, and we moved away from her bed."
-    show remy sad with dissolve
+    show remy sad dk with dissolve
 
-    Ry sad "Let's go, [player_name]. I don't think there's much else for us to do."
+    Ry "Let's go, [player_name]. I don't think there's much else for us to do."
 
     menu:
         "You're probably right":
@@ -328,10 +315,12 @@ label eval_adine4_changes_post_crash:
             label eval_adine4_stay_rethink:
                 pass
 
+            $ eval_ffg_ch4_hospital_leave = "early"
+
             menu:
                 "Sure.":
                     c "That's very nice of you, Remy. I would love to."
-                    Ry normal "Okay, let's go then."
+                    Ry normal dk "Okay, let's go then."
                 
                 "No thank you.":
                     c "That's okay, Remy. I'm sure you have other things to do."
@@ -340,84 +329,254 @@ label eval_adine4_changes_post_crash:
             m "I glanced at Adine one last time before the two of us made our way back into the hallway."
             hide remy with dissolve
             play sound "fx/door/opendoorslow.ogg"
-            $ renpy.pause (3.5)
+            $ renpy.pause (3.6)
             scene black with dissolveslow
             play sound "fx/door/door_close.wav"
             stop soundloop fadeout 4.0
             $ renpy.pause (4.0)
             jump eval_adine4_changes_apartment
     
-    "I'd like to stay here.":
-        c "I think I'm going to stay here for the night, Remy. I don't want to leave quite yet."
-        Ry look "[player_name], I'd love to do the same, but we aren't supposed to be here in the first place."
-        Ry "[eval_ffg_ch4_character_met] wanted us to promise that we wouldn't get caught."
+        "I'd like to stay here.":
+            c "I think I'm going to stay here for the night, Remy. I don't want to leave quite yet."
+            Ry look dk "[player_name], I'd love to do the same, but we aren't supposed to be here in the first place."
+            Ry "[eval_ffg_ch4_character] wanted us to promise that we wouldn't get caught."
 
-        menu:
-            "[[Insist.]":
+            menu:
+                "[[Insist.]":
+                    pass
+                
+                "[[Agree to leave.]":
+                    c "I guess you're right. I don't want anyone getting in trouble."
+                    Ry normal dk "We can always check back tomorrow, too. Listen to her heartrate."
+                    $ renpy.pause (4.5)
+                    c "I guess it is quite stable."
+                    Ry "Would you like me to walk back to your apartment with you?"
+                    jump eval_adine4_stay_rethink
+
+            $ eval_ffg_ch4_hospital_leave = "late"
+            c "Despite whatever consequences may arise, I'm staying here, Remy."
+            Ry "I guess I can't stop you. I think I'm going to leave for the night and check back in tomorrow, instead."
+            c "I understand, Remy. See you around."
+            Ry normal dk "Goodnight, [player_name]. Sleep well, I guess."
+            hide remy with easeoutleft
+            play sound "fx/door/opendoorslow.ogg"
+            $ renpy.pause (3.6)
+            queue sound "fx/door/door_close.wav"
+            $ renpy.pause (4.0)
+
+            label eval_adine4_changes_stay_options:
                 pass
-            
-            "[[Agree to leave.]":
-                c "I guess you're right. I don't want anyone getting in trouble."
-                Ry normal "We can always check back tomorrow, too. Listen to her heartrate."
-                $ renpy.pause (4.5)
-                c "I guess it is quite stable."
-                Ry "Would you like me to walk back to your apartment with you?"
-                jump eval_adine4_stay_rethink
 
-        c "Despite whatever consequences may arise, I'm staying here, Remy."
-        Ry "I guess I can't stop you. I think I'm going to leave for the night and check back in tomorrow, instead."
-        c "I understand, Remy. See you around."
-        Ry normal "Goodnight, [player_name]. Sleep well, I guess."
-        hide remy with easeoutleft
-        play sound "fx/door/opendoorslow.ogg"
-        $ renpy.pause (3.5)
-        play sound "fx/door/door_close.wav"
-        $ renpy.pause (4.0)
+            menu:
+                c "(What now?)"
 
-        label eval_adine4_changes_stay_options:
-            pass
+                "[[Go back to Adine.]" if not eval_ffg_ch4_tickle and adinestatus == "good":
+                    m "I decided to make my way back to Adine's bedside, standing over her bandaged body."
+                    m "She had shifted slightly since the last time I had seen her, and her tail seemed dangerously close to slipping off the bed."
 
-        menu:
-            c "(What now?)"
+                    menu:
 
-            "[[Go back to Adine.]" if not eval_ffg_ch4_tickle and adinestatus == "good":
-                m "I decided to make my way back to Adine's bedside, standing over her bandaged body."
-                m "She had shifted slightly since the last time I had seen her, and her tail seemed dangerously close to slipping off the bed."
-
-                "[[Adjust her tail.]":
-                    m "Carefully, I readjusted her tail back towards the center of the bed. It was much heavier than I thought, and I struggled to keep a good grip on her smooth scales."
+                        "[[Adjust her tail.]":
+                            m "Carefully, I readjusted her tail back towards the center of the bed. It was much heavier than I thought, and I struggled to keep a good grip on her smooth scales."
+                        
+                        "[[Leave her tail alone.]":
+                            c "(I shouldn't risk hurting her.)"
+                    
+                    m "I gently rested my hand against Adine's uninjured side and, subconsciously, lightly rubbed her scales." #without thinking?
+                    m "A faint murmur arose from the dragoness, and her lips weakly parted for a moment before returning to normal."
+                    c "(Maybe she's ticklish there?)"
+                    $ eval_ffg_ch4_tickle = True
+                    jump eval_adine4_changes_stay_options
                 
-                "[[Leave her tail alone.]":
-                    c "(I shouldn't risk hurting her.)"
+                "[[Call it a night.]":
+                    m "Looking at the pale moonlight outside the window, I decided to get some sleep before morning came."
+                    m "There weren't many places in the room to sleep. In the end, I designated a chair in the corner of the room as my temporary sleeping arrangement."
+                    m "As I sat down, exhaustion washed over my body. With the beeping of the heart monitor, I closed my eyes and drifted off to sleep."
+                    stop soundloop fadeout 4.0
+                    scene black with dissolveslow
+                    $ renpy.pause (4.0)
+                    jump eval_adine4_changes_hospital_wakeup
                 
-                m "I gently rested my hand against Adine's uninjured side and, subconsciously, lightly rubbed her scales." #without thinking?
-                m "A faint murmur arose from the dragoness, and her lips weakly parted for a moment before returning to normal."
-                c "(Maybe she's ticklish there?)"
-                $ eval_ffg_ch4_tickle = True
-                jump eval_adine4_changes_stay_options
-            
-            "[[Call it a night.]":
-                m "Looking at the pale moonlight outside the window, I decided to get some sleep before morning came."
-                m "There weren't many places in the room to sleep. In the end, I designnated a chair in the corner of the room as my temporary sleeping arrangement."
-                m "As I sat down, exhaustion washed over my body. With the beeping of the heart monitor, I closed my eyes and drifted off to sleep."
-                stop soundloop fadeout 4.0
-                scene black with dissolveslow
-                jump eval_adine4_changes_hospital_wakeup
-            
-            "[[Return to your apartment.]":
-                m "Recalling what Remy had said, I decided it would be in my best interest to return to my apartment before anyone came to check on Adine."
-                if eval_ffg_ch4_tickle:
-                    m "She had reacted to my touch, which made me feel safer leaving her for the night."
-                play sound "fx/door/opendoorslow.ogg"
-                m "Glancing at Adine one last time over my shoulder, I closed the door and made my way back to my apartment."
-                play sound "fx/door/door_close.wav"
-                $ renpy.pause (4.0)
-                jump eval_adine4_changes_apartment
+                "[[Return to your apartment.]":
+                    m "Recalling what Remy had said, I decided it would be in my best interest to return to my apartment before anyone came to check on Adine."
+                    if eval_ffg_ch4_tickle:
+                        m "She had reacted to my touch, which made me feel safer leaving her for the night."
+                    play sound "fx/door/opendoorslow.ogg"
+                    m "Glancing at Adine one last time over my shoulder, I closed the door and made my way back to my apartment."
+                    queue sound "fx/door/door_close.wav"
+                    $ renpy.pause (4.0)
+                    jump eval_adine4_changes_apartment
 
 #Post-hospital content if you decide to stay at the hospital
 label eval_adine4_changes_hospital_wakeup:
-    pass
+    $ eval_ffg_ch4_hospital_leave = "sleep"
+    if eval_ffg_ch4_character == "Anna":
+        An rage b "[player_name]?" with Shake ((0, 0, 0, 0), 1.5, dist=10)
+        m "I groggily opened my eyes, finding myself face to face with Anna."
+        play soundloop "fx/heartrate.mp3" fadein 4.0
+        play music "mx/hydrangea.ogg" fadein 3.0
+        scene evalhospitalroom
+        show anna rage b
+        with dissolveslow
+        play sound "fx/neptune.mp3" fadein 2.0
+        An "What the hell are you still doing here?"
+        c "I wanted to stay with Adine. I couldn't bear to leave her alone in the state she's currently in."
+        An face b "Didn't I tell you that you weren't supposed to be here in the first place? What do you think would have happened if someone else found you in here?"
+        c "I don't know."
+        An "Well, it wouldn't be pretty, that's for sure."
+        An disgust b "Then they would somehow connect this to me, and that would make my situation even worse than it already is."
+        c "I'm sorry, I was just so worried."
+        m "Anna sighed."
+        An normal b "I guess I can't blame you too much. Adine and I have never gotten along, but I would be lying if I said it didn't pull on my heartstrings a little to see her in this position."
+        An "Come on, let's leave before someone else finds us in here. Those doctors can be really stingy with visitors."
+
+        menu:
+            "Can I get one last goodbye?":
+                c "Could I say goodbye to her one last time before we go?"
+                An face b "It's not like she's going anywhere, but sure, I guess. Just make it quick."
+                hide anna with easeoutleft
+                play sound "fx/door/opendoorslow.ogg"
+                $ renpy.pause (3.6)
+                An "Close the door when you're done."
+                c "Got it."
+                m "I got up from the chair and made my way to Adine one last time. She hadn't moved since the night before."
+                c "Goodbye, Adine. I'll see you soon."
+                m "There was no response. With my final goodbye, I joined Anna at the end of the hallway."
+                scene black with dissolveslow
+                stop soundloop fadeout 2.0
+                queue sound "fx/door/door_close.wav"
+            
+            "I'll follow you.":
+                c "I'll follow you."
+                An smirk b "Like a little duckling."
+                c "Whatever."
+                hide anna with easeoutleft
+                play sound "fx/door/opendoorslow.ogg"
+                $ renpy.pause (3.6)
+                scene black with dissolveslow
+                stop soundloop fadeout 2.0
+                queue sound "fx/door/door_close.wav"
+        
+        $ renpy.pause (3.0)
+        scene evalhospitalhall
+        show anna normal b
+        with dissolveslow
+        An "Well, here's your exit. If you thought I was going to walk you home, you thought wrong."
+        c "Before I go, would you happen to have any information about Adine's treatment or when she will recover?"
+        An face b "I knew you would ask this. You're lucky I went through her file a bit this morning before I found you in her room."
+        An normal b "I'm not sure how quickly this process takes in your world, but almost all of the major surgery she needed was done yesterday."
+        An "According to her file, she needs rest and time for her wounds to heal. I'd give it about a week before she is conscious and not bedridden."
+        c "You know, I'm curious. Why did you come into the room in the first place, Anna?"
+        An disgust b "What are you getting at?"
+        c "Did you have a reason to come and check on Adine today?"
+        An face b "I wanted to make sure you hadn't messed up anything in the room. That's all."
+        c "I understand. Thank you for your help."
+        An smirk b "I was in a good mood today. Don't expect this to become a normal thing."
+        c "Goodbye, Anna."
+        An normal b "See you around."
+        hide anna with easeoutleft
+
+    else:
+        Sb disapproval b "[player_name]?"
+        m "As I slowly opened my eyes, I found myself face to face with Sebastian."
+        play soundloop "fx/heartrate.mp3" fadein 4.0
+        play music "mx/hydrangea.ogg" fadein 3.0
+        scene evalhospitalroom
+        show sebastian disapproval b
+        with dissolveslow
+        play sound "fx/neptune.mp3"
+        Sb "What are you still doing here?"
+        c "I wanted to stay with Adine. I couldn't bear to leave her alone in the state she's currently in."
+        Sb "I could get fired for this, you know."
+        Sb normal b "Come on. Let's go before someone else finds us in here."
+
+        menu:
+            "Can I get one last goodbye?":
+                c "Could I say goodbye to her one last time before we go?"
+                Sb "Sure, but please try to make it quick."
+                hide sebastian with easeoutleft
+                play sound "fx/door/opendoorslow.ogg"
+                $ renpy.pause (3.6)
+                Sb "Make sure to close the door behind you."
+                c "Got it."
+                m "As Sebastian left the room, I got up from my chair and made my way to Adine one last time. She hadn't moved since the night before."
+                c "Goodbye, Adine. I'll see you soon."
+                m "There was no response. With my final goodbye, I joined Sebastian at the end of the hallway."
+                scene black with dissolveslow
+                stop soundloop fadeout 2.0
+                play sound "fx/door/door_close.wav"
+            
+            "Sure. I'll follow you.":
+                c "I'll follow you."
+                hide sebastian with easeoutleft
+                play sound "fx/door/opendoorslow.ogg"
+                $ renpy.pause (3.6)
+                scene black with dissolveslow
+                stop soundloop fadeout 2.0
+                play sound "fx/door/door_close.wav"
+        
+        $ renpy.pause (3.0)
+        scene evalhospitalhall
+        show sebastian normal b
+        with dissolveslow
+        Sb "Before you go, I guess I should mention that I looked through Adine's files a little bit this morning."
+        Sb "I was going to run down and tell you at your apartment, but it seems I don't have to do that any more."
+        c "Sorry about that."
+        Sb "No worries. Nothing came of it, so it's alright."
+        Sb "Anyways, according to her documents, most of the major surgery she needed has already been done. I estimate that she'll be conscious in a little bit more than a week."
+        c "I understand. Thank you for your help."
+        Sb "Glad I could assist. See you around, [player_name]."
+        hide sebastian with easeoutleft
+    
+    stop music fadeout 2.0
+    scene black with dissolveslow
+        
+    $ adinescenesfinished = 4
+
+    $ persistent.adine4skip = True
+
+    stop music fadeout 1.0
+    $ renpy.pause(1.0)
+
+
+
+    if chapter4unplayed == False:
+
+        jump chapter4chars
+
+    elif chapter3unplayed == False:
+
+        jump chapter3chars
+
+    elif chapter2unplayed == False:
+
+        jump chapter2chars
+    else:
+
+        jump chapter1chars
 
 #Post-hospotal content if you decide to leave the hospital at any point or Remy is dead
 label eval_adine4_changes_apartment:
-    pass
+    $ adinescenesfinished = 4
+
+    $ persistent.adine4skip = True
+
+    stop music fadeout 1.0
+    $ renpy.pause(1.0)
+
+
+
+    if chapter4unplayed == False:
+
+        jump chapter4chars
+
+    elif chapter3unplayed == False:
+
+        jump chapter3chars
+
+    elif chapter2unplayed == False:
+
+        jump chapter2chars
+    else:
+
+        jump chapter1chars

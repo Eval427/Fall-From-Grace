@@ -33,25 +33,35 @@ class AWSWMod(Mod):
             .link_from("eval_adine4_default_path")
 
         #Let Remy die again
-        ml.find_label("c4library") \
-            .search_sound("fx/knocking1.ogg") \
-            .search_python("renpy.pause (3.3)") \
-            .hook_to("eval_anti_remy_persistence")
+        #ml.find_label("c4library") \
+        #    .search_python("renpy.pause (3.3)") \
+        #    .hook_call_to("eval_anti_remy_persistence")
 
-        remy_conditional = ml.find_label("c4library").search_if("remystatus == \"good\"")
+        #remy_conditional = ml.find_label("c4library").search_if("remystatus == \"good\"")
          
-        remy_conditional.branch("persistent.remygoodending == True") \
-            .hook_to("eval_anti_remy_persistence")
+        #remy_conditional.branch("persistent.remygoodending == True") \
+        #    .hook_call_to("eval_anti_remy_persistence")
         
-        remy_conditional.branch_else() \
-            .hook_to("eval_anti_remy_persistence_jump") \
+        #remy_conditional.branch_else() \
+        #    .hook_to("eval_anti_remy_persistence_jump") \
         
-        ml.find_label("c4postsections") \
-            .search_show("sebastian normal b") \
-            .hook_call_to("eval_remydeath_check") \
+        #ml.find_label("c4postsections") \
+        #    .search_show("sebastian normal b") \
+        #    .hook_call_to("eval_remydeath_check") \
         
-        ml.find_label("chapter5") \
-            .hook_call_to("eval_remydeath_check")
+        #ml.find_label("chapter5") \
+        #    .hook_call_to("eval_remydeath_check")
 
+        #Chapter 5 phone call
+        ml.find_label("chapter5") \
+            .search_python("chapter5unplayed = False") \
+            .hook_to("eval_adine5_phonecall") \
+            .search_python("loremavailable = False") \
+            .link_from("eval_adine5_phonecall_end")
+        
+        #Adine 5 changes
+        ml.find_label("adine5") \
+            .hook_to("eval_adine5_fireworks")
+        
     def mod_complete(self):
         pass
