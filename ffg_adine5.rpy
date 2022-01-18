@@ -190,7 +190,7 @@ label eval_adine5_fireworks:
     show remy look flip at left
     with dissolve
     Ad "What do you mean?"
-    c "The fireworks make the perfect time for his getaway. The area around te portal is almost completely deserted and the sounds of the fireworks could cover up any of his gunshots."
+    c "The fireworks make the perfect time for his getaway. The area around the portal is almost completely deserted and the sounds of the fireworks could cover up any of his gunshots."
     Ad disappoint hurt "I see. Well, what should we do?"
     c "Adine, you should stay here. Remy, could you get us some assistance? I'll try to buy us time by confronting him." #Excuse for map: Adine asked one of the hospital employees (or maybe Seb?) to get it from her apartment for entertainment
     Ry "On it."
@@ -425,29 +425,31 @@ label eval_adine5_fireworks:
     c "How are you feeling today, Adine?"
     Ad "Aside from this damn bandage, I'm feeling better today. How about you."
     c "I think my leg has completely healed at this point. I don't feel any pain on it anymore."
-    Ad giggle "That's good to hear."
-    Ad normal "Hey, I have some really good news, [player_name]. The doctor told me that I could leave the hospital tomorrow!"
+    Ad giggle hurt "That's good to hear."
+    Ad normal hurt "Hey, I have some really good news, [player_name]. The doctor told me that I could leave the hospital tomorrow!"
     c "Really? That's wonderful, Adine!"
-    Ad none "I guess so..."
+    Ad none hurt "I guess so..."
     c "Is something wrong?"
     Ad "I'm out of a job now. I'm not sure how I'm going to support myself."
-    Ad sigh "That job was awful, but it was keeping me afloat. Now... I'm not sure what to do."
+    Ad sigh hurt "That job was awful, but it was keeping me afloat. Now I'm not sure what to do."
     c "Adine, I-"
     m "Suddenly, a flash of inspiration hit me."
-    c "What if you moved in with me? The council has allowed me to keep my apartment. You could stay there until you recover."
+    c "What if you moved in with me? The council allowed me to keep my apartment, so you could stay there until you recover."
     Ad "You would really do that for me, [player_name]?"
     c "Of course, Adine. I would love to have your company."
-    Ad giggle "Thank you! You don't know how much this means to me."
+    Ad giggle hurt "Thank you! You don't know how much this means to me."
     hide adine with dissolve
     m "Awkwardly, Adine reached her uninjured wing around my body and squeezed."
-    show adine normal with dissolve
+    play sound "fx/hug.mp3"
+    show adine normal hurt with dissolve
     Ad "Is it alright if I come over tomorrow morning? That's supposedly when I'm supposed to get out of this place."
-    Ad giggle "But you can never be sure with doctors. They might keep me prisoner even longer!"
+    Ad giggle hurt "But you can never be sure with doctors. They might keep me prisoner even longer!"
     m "I chuckled."
     c "Take care, Adine. I'll see you tomorrow."
-    Ad normal "Bright and early. I'm getting out of here as soon as possible."
+    Ad normal hurt "Bright and early. I'm getting out of here as soon as possible."
     stop music fadeout 2.0
     scene black with dissolveslow
+    jump eval_ffg_ch6
     
     #Temporary. Delete later
     $ renpy.pause (5.0)
@@ -782,10 +784,9 @@ label eval_adine5_nomap_bad:
         c "Even if we did, we wouldn't be able to survive on the barren landscape."
         Ad "Yeah..."
     
-    m "The sky started to glow brighter as the big rock in the sky drew closer."
+    m "The sky started to grow darker as the comet drew closer."
     Ad sad hurt "I can't believe it has to end like this."
     Ad "I was so close to winning that competition, I just know it! But my damn wing had to give out at the very last moment."
-    m "The room became brighter again, the comet visible through the open window."
     Ad disappoint hurt "Look at me, [player_name]. I'm nothing more than a waitress making minimum wage and a terrible flyer."
     c "Adine, you're so much more than that."
     Ad "I got one opportunity in my life to make a difference and I blew it. Now the world's going to end and I'm still just a nobody."
@@ -810,7 +811,7 @@ label eval_adine5_nomap_bad:
         c "Me too, Adine."
         m "The two of us looked out the window in silence, watching the grow larger and larger."
     
-    Ad "{size-=5}Goodbye, [player_name]."
+    Ad "{size-=5}Goodbye, [player_name].{/size}"
     m "I gulped, holding back tears."
     c "Goodbye, Adine."
 

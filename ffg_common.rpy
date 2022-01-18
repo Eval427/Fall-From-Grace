@@ -71,6 +71,7 @@
     #Adine blush doesn't exist. Whoops (and watch me forget to edit this later once I add it)
     #Add an option to skip the beginning
     #Add randomness to the dates to keep them somewhat fresh for replayability?
+    #OH NO THE SHOWER ISN'T BIG FOR MC (okay maybe it's big enough for her?)
 
 
 init python:
@@ -99,6 +100,11 @@ init python:
 
     #Whether you get shot during the bad ending
     eval_ffg_ch5_bad_shot = False
+
+    #Chapter 6 moving out variables
+    eval_ffg_ch6_bathroom = False
+    eval_ffg_ch6_bedroom = False
+    eval_ffg_ch6_closet = False
 
 #Remove Remy's persistent survival. AKA, Remy can now die if his status is bad or abandoned despite having his good ending
 label eval_anti_remy_persistence:
